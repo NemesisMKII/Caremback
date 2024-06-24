@@ -1,9 +1,19 @@
 const blagues = require("../json/blagues.json");
+const fonctions = require("../utilities/fonctions");
+
+exports.blague_get = (req, res) => {
+  const blague = blagues.find(b => b.id === parseInt(req.params.id))
+  if (!blague) {
+    res.status(404).send("oui")
+  }
+}
 
 exports.blagues_get_all = (req, res) => {
-    res.status(200).send({
-        message: "Bien ouej !"
-    })
+  res.status(200).send(blagues)
+}
+
+exports.blague_get_random = (req, res) => {
+  res.status(200).send(blagues[fonctions.random(0, blagues.length)])
 }
 
 exports.blague_create = (req, res) => {
