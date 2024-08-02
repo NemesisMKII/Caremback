@@ -1,13 +1,15 @@
 const express = require("express");
 const port = 3000;
 const sequelize = require('./database/db');
-const Jokes = require('./database/jokes')
+const Jokes = require('./database/jokes');
+const cors = require('cors')
 
 sequelize.sync().then(() => {console.log("la base de donnée est en activité !");})
 
 const app = express();
 
 app.use(express.json());
+app.use(cors())
 
 app.post("/jokes", async (req, res) => {
     await Jokes.create(req.body)
